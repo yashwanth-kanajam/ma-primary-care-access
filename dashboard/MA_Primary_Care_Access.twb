@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='utf-8'?>
+<workbook version="18.1" source-platform="mac" source-build="2026.2.2 (20262.26.0819.2015)">
+  <preferences />
+  <datasources>
+    <datasource name="access" caption="Massachusetts county access indicators" inline="true" version="18.1">
+      <connection directory="Data" filename="dashboard.csv" server="" class="textscan">
+        <relation name="dashboard.csv" table="[dashboard#csv]" type="table">
+          <columns header="yes" separator="," locale="en_US" character-set="UTF-8">
+            <column name="panel" datatype="string" ordinal="0" />
+            <column name="county" datatype="string" ordinal="1" />
+            <column name="fips" datatype="string" ordinal="2" />
+            <column name="screening_group" datatype="string" ordinal="3" />
+            <column name="polygon" datatype="string" ordinal="4" />
+            <column name="point" datatype="integer" ordinal="5" />
+            <column name="longitude" datatype="real" ordinal="6" />
+            <column name="latitude" datatype="real" ordinal="7" />
+            <column name="value" datatype="real" ordinal="8" />
+            <column name="unit" datatype="string" ordinal="9" />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled="yes" />
+      <column name="[panel]" datatype="string" role="dimension" type="nominal" caption="Panel" />
+      <column name="[county]" datatype="string" role="dimension" type="nominal" caption="County" />
+      <column name="[fips]" datatype="string" role="dimension" type="nominal" caption="County FIPS" />
+      <column name="[screening_group]" datatype="string" role="dimension" type="nominal" caption="Baseline shortlist" />
+      <column name="[polygon]" datatype="string" role="dimension" type="nominal" caption="Polygon" />
+      <column name="[point]" datatype="integer" role="dimension" type="ordinal" caption="Point" />
+      <column name="[longitude]" datatype="real" role="measure" type="quantitative" caption="Longitude" />
+      <column name="[latitude]" datatype="real" role="measure" type="quantitative" caption="Latitude" />
+      <column name="[value]" datatype="real" role="measure" type="quantitative" caption="Indicator" />
+      <column name="[unit]" datatype="string" role="dimension" type="nominal" caption="Unit" />
+      <extract enabled="true" count="-1" units="records">
+        <connection dbname="Data/access.hyper" schema="Extract" access_mode="readonly" authentication="auth-none" class="hyper" default-settings="yes">
+          <relation name="Extract" table="[Extract].[Extract]" type="table" />
+        </connection>
+      </extract>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name="County map">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize="12" bold="true">County map</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource name="access" caption="Massachusetts county access indicators" />
+          </datasources>
+          <datasource-dependencies datasource="access">
+            <column name="[panel]" datatype="string" role="dimension" type="nominal" />
+            <column name="[county]" datatype="string" role="dimension" type="nominal" />
+            <column name="[fips]" datatype="string" role="dimension" type="nominal" />
+            <column name="[screening_group]" datatype="string" role="dimension" type="nominal" />
+            <column name="[polygon]" datatype="string" role="dimension" type="nominal" />
+            <column name="[point]" datatype="integer" role="dimension" type="ordinal" />
+            <column name="[longitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[latitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[value]" datatype="real" role="measure" type="quantitative" />
+            <column name="[unit]" datatype="string" role="dimension" type="nominal" />
+            <column-instance column="[panel]" derivation="None" name="[none:panel:nk]" pivot="key" type="nominal" />
+            <column-instance column="[county]" derivation="None" name="[none:county:nk]" pivot="key" type="nominal" />
+            <column-instance column="[fips]" derivation="None" name="[none:fips:nk]" pivot="key" type="nominal" />
+            <column-instance column="[screening_group]" derivation="None" name="[none:screening_group:nk]" pivot="key" type="nominal" />
+            <column-instance column="[polygon]" derivation="None" name="[none:polygon:nk]" pivot="key" type="nominal" />
+            <column-instance column="[point]" derivation="None" name="[none:point:ok]" pivot="key" type="ordinal" />
+            <column-instance column="[longitude]" derivation="Sum" name="[sum:longitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[latitude]" derivation="Sum" name="[sum:latitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[value]" derivation="Sum" name="[sum:value:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[unit]" derivation="None" name="[none:unit:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <filter column="[access].[none:panel:nk]" class="categorical">
+            <groupfilter function="member" level="[none:panel:nk]" member="&quot;Map&quot;" />
+          </filter>
+          <slices>
+            <column>[access].[none:panel:nk]</column>
+          </slices>
+          <aggregation value="true" />
+        </view>
+        <style>
+          <style-rule element="mark">
+            <format attr="mark-labels-show" value="false" />
+            <encoding attr="color" field="[access].[none:screening_group:nk]" type="palette">
+              <map to="#b65a2b">
+                <bucket>"Investigate"</bucket>
+              </map>
+              <map to="#8aabbc">
+                <bucket>"Not selected"</bucket>
+              </map>
+            </encoding>
+          </style-rule>
+          <style-rule element="axis">
+            <format attr="title" field="[access].[sum:longitude:qk]" scope="cols" value="Longitude" class="0" />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Polygon" />
+            <encodings>
+              <color column="[access].[none:screening_group:nk]" />
+              <lod column="[access].[none:county:nk]" />
+              <lod column="[access].[none:polygon:nk]" />
+              <path column="[access].[none:point:ok]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[access].[sum:latitude:qk]</rows>
+        <cols>[access].[sum:longitude:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Primary-care physicians per 100,000 residents">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize="12" bold="true">Primary-care physicians per 100,000 residents</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource name="access" caption="Massachusetts county access indicators" />
+          </datasources>
+          <datasource-dependencies datasource="access">
+            <column name="[panel]" datatype="string" role="dimension" type="nominal" />
+            <column name="[county]" datatype="string" role="dimension" type="nominal" />
+            <column name="[fips]" datatype="string" role="dimension" type="nominal" />
+            <column name="[screening_group]" datatype="string" role="dimension" type="nominal" />
+            <column name="[polygon]" datatype="string" role="dimension" type="nominal" />
+            <column name="[point]" datatype="integer" role="dimension" type="ordinal" />
+            <column name="[longitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[latitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[value]" datatype="real" role="measure" type="quantitative" />
+            <column name="[unit]" datatype="string" role="dimension" type="nominal" />
+            <column-instance column="[panel]" derivation="None" name="[none:panel:nk]" pivot="key" type="nominal" />
+            <column-instance column="[county]" derivation="None" name="[none:county:nk]" pivot="key" type="nominal" />
+            <column-instance column="[fips]" derivation="None" name="[none:fips:nk]" pivot="key" type="nominal" />
+            <column-instance column="[screening_group]" derivation="None" name="[none:screening_group:nk]" pivot="key" type="nominal" />
+            <column-instance column="[polygon]" derivation="None" name="[none:polygon:nk]" pivot="key" type="nominal" />
+            <column-instance column="[point]" derivation="None" name="[none:point:ok]" pivot="key" type="ordinal" />
+            <column-instance column="[longitude]" derivation="Sum" name="[sum:longitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[latitude]" derivation="Sum" name="[sum:latitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[value]" derivation="Sum" name="[sum:value:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[unit]" derivation="None" name="[none:unit:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <filter column="[access].[none:panel:nk]" class="categorical">
+            <groupfilter function="member" level="[none:panel:nk]" member="&quot;Physicians&quot;" />
+          </filter>
+          <slices>
+            <column>[access].[none:panel:nk]</column>
+          </slices>
+          <aggregation value="true" />
+        </view>
+        <style>
+          <style-rule element="mark">
+            <format attr="mark-labels-show" value="true" />
+            <encoding attr="color" field="[access].[none:screening_group:nk]" type="palette">
+              <map to="#b65a2b">
+                <bucket>"Investigate"</bucket>
+              </map>
+              <map to="#8aabbc">
+                <bucket>"Not selected"</bucket>
+              </map>
+            </encoding>
+          </style-rule>
+          <style-rule element="axis">
+            <format attr="title" field="[access].[sum:value:qk]" scope="cols" value="Physicians per 100,000" class="0" />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings>
+              <color column="[access].[none:screening_group:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[access].[none:county:nk]</rows>
+        <cols>[access].[sum:value:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Poverty context">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize="12" bold="true">Poverty context</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource name="access" caption="Massachusetts county access indicators" />
+          </datasources>
+          <datasource-dependencies datasource="access">
+            <column name="[panel]" datatype="string" role="dimension" type="nominal" />
+            <column name="[county]" datatype="string" role="dimension" type="nominal" />
+            <column name="[fips]" datatype="string" role="dimension" type="nominal" />
+            <column name="[screening_group]" datatype="string" role="dimension" type="nominal" />
+            <column name="[polygon]" datatype="string" role="dimension" type="nominal" />
+            <column name="[point]" datatype="integer" role="dimension" type="ordinal" />
+            <column name="[longitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[latitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[value]" datatype="real" role="measure" type="quantitative" />
+            <column name="[unit]" datatype="string" role="dimension" type="nominal" />
+            <column-instance column="[panel]" derivation="None" name="[none:panel:nk]" pivot="key" type="nominal" />
+            <column-instance column="[county]" derivation="None" name="[none:county:nk]" pivot="key" type="nominal" />
+            <column-instance column="[fips]" derivation="None" name="[none:fips:nk]" pivot="key" type="nominal" />
+            <column-instance column="[screening_group]" derivation="None" name="[none:screening_group:nk]" pivot="key" type="nominal" />
+            <column-instance column="[polygon]" derivation="None" name="[none:polygon:nk]" pivot="key" type="nominal" />
+            <column-instance column="[point]" derivation="None" name="[none:point:ok]" pivot="key" type="ordinal" />
+            <column-instance column="[longitude]" derivation="Sum" name="[sum:longitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[latitude]" derivation="Sum" name="[sum:latitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[value]" derivation="Sum" name="[sum:value:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[unit]" derivation="None" name="[none:unit:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <filter column="[access].[none:panel:nk]" class="categorical">
+            <groupfilter function="member" level="[none:panel:nk]" member="&quot;Poverty&quot;" />
+          </filter>
+          <slices>
+            <column>[access].[none:panel:nk]</column>
+          </slices>
+          <aggregation value="true" />
+        </view>
+        <style>
+          <style-rule element="mark">
+            <format attr="mark-labels-show" value="true" />
+            <encoding attr="color" field="[access].[none:screening_group:nk]" type="palette">
+              <map to="#b65a2b">
+                <bucket>"Investigate"</bucket>
+              </map>
+              <map to="#8aabbc">
+                <bucket>"Not selected"</bucket>
+              </map>
+            </encoding>
+          </style-rule>
+          <style-rule element="axis">
+            <format attr="title" field="[access].[sum:value:qk]" scope="cols" value="Percent below poverty" class="0" />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings>
+              <color column="[access].[none:screening_group:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[access].[none:county:nk]</rows>
+        <cols>[access].[sum:value:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Older-population context">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize="12" bold="true">Older-population context</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource name="access" caption="Massachusetts county access indicators" />
+          </datasources>
+          <datasource-dependencies datasource="access">
+            <column name="[panel]" datatype="string" role="dimension" type="nominal" />
+            <column name="[county]" datatype="string" role="dimension" type="nominal" />
+            <column name="[fips]" datatype="string" role="dimension" type="nominal" />
+            <column name="[screening_group]" datatype="string" role="dimension" type="nominal" />
+            <column name="[polygon]" datatype="string" role="dimension" type="nominal" />
+            <column name="[point]" datatype="integer" role="dimension" type="ordinal" />
+            <column name="[longitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[latitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[value]" datatype="real" role="measure" type="quantitative" />
+            <column name="[unit]" datatype="string" role="dimension" type="nominal" />
+            <column-instance column="[panel]" derivation="None" name="[none:panel:nk]" pivot="key" type="nominal" />
+            <column-instance column="[county]" derivation="None" name="[none:county:nk]" pivot="key" type="nominal" />
+            <column-instance column="[fips]" derivation="None" name="[none:fips:nk]" pivot="key" type="nominal" />
+            <column-instance column="[screening_group]" derivation="None" name="[none:screening_group:nk]" pivot="key" type="nominal" />
+            <column-instance column="[polygon]" derivation="None" name="[none:polygon:nk]" pivot="key" type="nominal" />
+            <column-instance column="[point]" derivation="None" name="[none:point:ok]" pivot="key" type="ordinal" />
+            <column-instance column="[longitude]" derivation="Sum" name="[sum:longitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[latitude]" derivation="Sum" name="[sum:latitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[value]" derivation="Sum" name="[sum:value:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[unit]" derivation="None" name="[none:unit:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <filter column="[access].[none:panel:nk]" class="categorical">
+            <groupfilter function="member" level="[none:panel:nk]" member="&quot;Age&quot;" />
+          </filter>
+          <slices>
+            <column>[access].[none:panel:nk]</column>
+          </slices>
+          <aggregation value="true" />
+        </view>
+        <style>
+          <style-rule element="mark">
+            <format attr="mark-labels-show" value="true" />
+            <encoding attr="color" field="[access].[none:screening_group:nk]" type="palette">
+              <map to="#b65a2b">
+                <bucket>"Investigate"</bucket>
+              </map>
+              <map to="#8aabbc">
+                <bucket>"Not selected"</bucket>
+              </map>
+            </encoding>
+          </style-rule>
+          <style-rule element="axis">
+            <format attr="title" field="[access].[sum:value:qk]" scope="cols" value="Percent age 65 and over" class="0" />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings>
+              <color column="[access].[none:screening_group:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[access].[none:county:nk]</rows>
+        <cols>[access].[sum:value:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Shortlist sensitivity">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize="12" bold="true">Shortlist sensitivity</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource name="access" caption="Massachusetts county access indicators" />
+          </datasources>
+          <datasource-dependencies datasource="access">
+            <column name="[panel]" datatype="string" role="dimension" type="nominal" />
+            <column name="[county]" datatype="string" role="dimension" type="nominal" />
+            <column name="[fips]" datatype="string" role="dimension" type="nominal" />
+            <column name="[screening_group]" datatype="string" role="dimension" type="nominal" />
+            <column name="[polygon]" datatype="string" role="dimension" type="nominal" />
+            <column name="[point]" datatype="integer" role="dimension" type="ordinal" />
+            <column name="[longitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[latitude]" datatype="real" role="measure" type="quantitative" />
+            <column name="[value]" datatype="real" role="measure" type="quantitative" />
+            <column name="[unit]" datatype="string" role="dimension" type="nominal" />
+            <column-instance column="[panel]" derivation="None" name="[none:panel:nk]" pivot="key" type="nominal" />
+            <column-instance column="[county]" derivation="None" name="[none:county:nk]" pivot="key" type="nominal" />
+            <column-instance column="[fips]" derivation="None" name="[none:fips:nk]" pivot="key" type="nominal" />
+            <column-instance column="[screening_group]" derivation="None" name="[none:screening_group:nk]" pivot="key" type="nominal" />
+            <column-instance column="[polygon]" derivation="None" name="[none:polygon:nk]" pivot="key" type="nominal" />
+            <column-instance column="[point]" derivation="None" name="[none:point:ok]" pivot="key" type="ordinal" />
+            <column-instance column="[longitude]" derivation="Sum" name="[sum:longitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[latitude]" derivation="Sum" name="[sum:latitude:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[value]" derivation="Sum" name="[sum:value:qk]" pivot="key" type="quantitative" />
+            <column-instance column="[unit]" derivation="None" name="[none:unit:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <filter column="[access].[none:panel:nk]" class="categorical">
+            <groupfilter function="member" level="[none:panel:nk]" member="&quot;Stability&quot;" />
+          </filter>
+          <slices>
+            <column>[access].[none:panel:nk]</column>
+          </slices>
+          <aggregation value="true" />
+        </view>
+        <style>
+          <style-rule element="mark">
+            <format attr="mark-labels-show" value="true" />
+            <encoding attr="color" field="[access].[none:screening_group:nk]" type="palette">
+              <map to="#b65a2b">
+                <bucket>"Investigate"</bucket>
+              </map>
+              <map to="#8aabbc">
+                <bucket>"Not selected"</bucket>
+              </map>
+            </encoding>
+          </style-rule>
+          <style-rule element="axis">
+            <format attr="title" field="[access].[sum:value:qk]" scope="cols" value="Selections across 8 scenarios" class="0" />
+          </style-rule>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings>
+              <color column="[access].[none:screening_group:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[access].[none:county:nk]</rows>
+        <cols>[access].[sum:value:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name="Massachusetts primary-care access investigation">
+      <style />
+      <size minwidth="1400" maxwidth="1400" minheight="1150" maxheight="1150" />
+      <zones>
+        <zone id="1" x="1500" y="1000" w="97000" h="11500" type-v2="text">
+          <formatted-text>
+            <run fontsize="14" bold="true">MASSACHUSETTS | PRIMARY-CARE ACCESS
+2023 physicians; 2019-2023 ACS. Orange: baseline shortlist. Blue: not selected.
+Investigation screen only: physician counts do not prove unmet need or identify a clinic site.
+Lower supply + poverty or older-population context; see decision memo for thresholds and uncertainty.</run>
+          </formatted-text>
+        </zone>
+        <zone id="2" name="County map" x="1500" y="14000" w="46500" h="25000" />
+        <zone id="3" name="Primary-care physicians per 100,000 residents" x="50500" y="14000" w="48000" h="49000" />
+        <zone id="4" name="Poverty context" x="1500" y="42000" w="46500" h="25000" />
+        <zone id="5" name="Older-population context" x="1500" y="70000" w="46500" h="26000" />
+        <zone id="6" name="Shortlist sensitivity" x="50500" y="66000" w="48000" h="30000" />
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows>
+    <window name="Massachusetts primary-care access investigation" maximized="true" class="dashboard">
+      <viewpoints>
+        <viewpoint name="County map">
+          <zoom type="entire-view" />
+        </viewpoint>
+        <viewpoint name="Primary-care physicians per 100,000 residents">
+          <zoom type="entire-view" />
+        </viewpoint>
+        <viewpoint name="Poverty context">
+          <zoom type="entire-view" />
+        </viewpoint>
+        <viewpoint name="Older-population context">
+          <zoom type="entire-view" />
+        </viewpoint>
+        <viewpoint name="Shortlist sensitivity">
+          <zoom type="entire-view" />
+        </viewpoint>
+      </viewpoints>
+      <active id="-1" />
+    </window>
+  </windows>
+</workbook>

@@ -1,0 +1,15 @@
+fips_st_cnty,cnty_name_st_abbrev,phys_nf_prim_care_pc_exc_rsdt_23,phys_nf_prim_care_pc_exc_rsdt_22,md_nf_prim_care_pc_excl_rsdnt_23,do_nf_prim_care_pc_excl_rsdnt_23
+25001,"Barnstable, MA",192,206,170,22
+25003,"Berkshire, MA",152,155,140,12
+25005,"Bristol, MA",319,316,296,23
+25007,"Dukes, MA",14,12,12,2
+25009,"Essex, MA",599,599,545,54
+25011,"Franklin, MA",43,44,39,4
+25013,"Hampden, MA",325,321,305,20
+25015,"Hampshire, MA",186,199,171,15
+25017,"Middlesex, MA",1981,2004,1921,60
+25019,"Nantucket, MA",8,7,8,0
+25021,"Norfolk, MA",879,877,858,21
+25023,"Plymouth, MA",330,341,301,29
+25025,"Suffolk, MA",1313,1295,1285,28
+25027,"Worcester, MA",817,824,760,57

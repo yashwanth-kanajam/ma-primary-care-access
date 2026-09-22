@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68,<76"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ma-primary-care-access"
+version = "0.1.0"
+description = "Massachusetts county primary-care capacity and population-context analysis"
+requires-python = ">=3.11"
+dependencies = ["duckdb==1.4.3", "pyshp==2.3.1", "reportlab==4.4.4"]
+
+[project.optional-dependencies]
+test = ["pytest==8.4.2", "pypdf==6.1.1"]
+tableau = ["tableauhyperapi==0.0.26479"]
+
+[project.scripts]
+ma-access = "ma_access.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ma_access = ["sql/*.sql"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = [".venv*", "build", "dist", "data", "dashboard"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Memo and dashboard titles are literal prose strings reproduced verbatim in the
+# generated PDF and workbook; rewrapping them would change the rendered output.
+"src/ma_access/memo.py" = ["E501"]
+"src/ma_access/dashboard.py" = ["E501"]

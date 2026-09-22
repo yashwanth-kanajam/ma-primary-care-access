@@ -1,0 +1,160 @@
+{
+  "benchmarks": {
+    "pcp_per_100k": 102.36835876691748,
+    "poverty_pct": 9.98217416202257,
+    "age65_pct": 17.4668193086918
+  },
+  "capacity_cutoffs": {
+    "baseline": 78.82678906708841,
+    "stricter_capacity": 71.01370311866373,
+    "broader_capacity": 92.5435876150799,
+    "previous_workforce_year": 81.86930166091733,
+    "poverty_context_only": 78.82678906708841,
+    "older_context_only": 78.82678906708841,
+    "context_lower_bounds": 78.82678906708841,
+    "context_upper_bounds": 78.82678906708841
+  },
+  "baseline_shortlist": [
+    "Bristol",
+    "Dukes",
+    "Essex",
+    "Franklin",
+    "Hampden",
+    "Plymouth"
+  ],
+  "capacity_stable_shortlist": [
+    "Bristol",
+    "Dukes",
+    "Franklin",
+    "Hampden",
+    "Plymouth"
+  ],
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "selected_count": 6,
+      "shortlist": [
+        "Bristol",
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [],
+      "jaccard_to_baseline": 1.0
+    },
+    {
+      "scenario": "stricter_capacity",
+      "selected_count": 5,
+      "shortlist": [
+        "Bristol",
+        "Dukes",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [
+        "Essex"
+      ],
+      "jaccard_to_baseline": 0.8333333333333334
+    },
+    {
+      "scenario": "broader_capacity",
+      "selected_count": 7,
+      "shortlist": [
+        "Barnstable",
+        "Bristol",
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [
+        "Barnstable"
+      ],
+      "removed": [],
+      "jaccard_to_baseline": 0.8571428571428571
+    },
+    {
+      "scenario": "previous_workforce_year",
+      "selected_count": 6,
+      "shortlist": [
+        "Bristol",
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [],
+      "jaccard_to_baseline": 1.0
+    },
+    {
+      "scenario": "poverty_context_only",
+      "selected_count": 3,
+      "shortlist": [
+        "Bristol",
+        "Franklin",
+        "Hampden"
+      ],
+      "added": [],
+      "removed": [
+        "Dukes",
+        "Essex",
+        "Plymouth"
+      ],
+      "jaccard_to_baseline": 0.5
+    },
+    {
+      "scenario": "older_context_only",
+      "selected_count": 5,
+      "shortlist": [
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [
+        "Bristol"
+      ],
+      "jaccard_to_baseline": 0.8333333333333334
+    },
+    {
+      "scenario": "context_lower_bounds",
+      "selected_count": 6,
+      "shortlist": [
+        "Bristol",
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [],
+      "jaccard_to_baseline": 1.0
+    },
+    {
+      "scenario": "context_upper_bounds",
+      "selected_count": 6,
+      "shortlist": [
+        "Bristol",
+        "Dukes",
+        "Essex",
+        "Franklin",
+        "Hampden",
+        "Plymouth"
+      ],
+      "added": [],
+      "removed": [],
+      "jaccard_to_baseline": 1.0
+    }
+  ]
+}
