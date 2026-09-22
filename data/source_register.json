@@ -1,0 +1,59 @@
+{
+  "retrieved_utc": "2026-09-19T02:59:04.473905+00:00",
+  "downloads": {
+    "ahrf.zip": {
+      "title": "HRSA AHRF 2024-2025 county files",
+      "url": "https://data.hrsa.gov/DataDownload/AHRF/AHRF_2024-2025_CSV.zip",
+      "sha256": "6974adcd93ed8e0718d655e6912707bfc5ec37a9a2baf1fc27f59f12b5c441a0",
+      "bytes": 23287136
+    },
+    "ahrf_docs.zip": {
+      "title": "HRSA AHRF 2024-2025 technical documentation",
+      "url": "https://data.hrsa.gov/DataDownload/AHRF/AHRF_USER_TECH_2024-2025.zip",
+      "sha256": "aa03026107b8acf7fd5c5f2d0c96c30b44d254cbb122a31141a3aee2d726f680",
+      "bytes": 1019394
+    },
+    "acs_b01001.dat": {
+      "title": "Census 2019-2023 ACS five-year B01001",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/5YRData/acsdt5y2023-b01001.dat",
+      "sha256": "dc68a9b588cea042c73dfb4e5cd5e896a6f6c404a3e75be70a99dc514ed7bc35",
+      "bytes": 200088223
+    },
+    "acs_b17001.dat": {
+      "title": "Census 2019-2023 ACS five-year B17001",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/5YRData/acsdt5y2023-b17001.dat",
+      "sha256": "578e998daf0823a16e923e937cdff470392fcdd5fc1b0f963487ba5672c1c0b7",
+      "bytes": 118402375
+    },
+    "counties.zip": {
+      "title": "Census 2023 county cartographic boundaries, 1:500,000",
+      "url": "https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_county_500k.zip",
+      "sha256": "99d6597b1fc7767deef62e01d28d8b5dcbd578e151855f7dc0d173cbf5bf0868",
+      "bytes": 11630077
+    },
+    "acs_shells.txt": {
+      "title": "Census 2023 five-year table shells",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/documentation/ACS20235YR_Table_Shells.txt",
+      "sha256": "186e1df24bfcb5b015af1df011f4f4b68e77f02057312d701a50b2e19d00d253",
+      "bytes": 5596450
+    }
+  },
+  "slices": {
+    "ma_b01001.csv": {
+      "sha256": "2be22ede7f0866326f72e0e4fce6b9d0db34eae1fbf770ff93f34faab229e3b9",
+      "bytes": 7726
+    },
+    "ma_b17001.csv": {
+      "sha256": "8d51a11371735b03338852916d5de1d4360b71de87379d258831187faaabffc8",
+      "bytes": 8964
+    },
+    "ma_workforce.csv": {
+      "sha256": "9522abd316dd3b43c0fc6ecb252036b4a598a83bad0b84ce5a79d5a17dadd4d4",
+      "bytes": 657
+    },
+    "ma_counties.geojson": {
+      "sha256": "bd4e0fb1cdee451b2b3fcddbce480ea6c34fbdb87e445ae8d0c9e8fa7a89596c",
+      "bytes": 139920
+    }
+  }
+}
