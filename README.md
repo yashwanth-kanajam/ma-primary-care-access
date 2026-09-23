@@ -1,4 +1,4 @@
-# Massachusetts Primary-Care Access
+# Massachusetts Primary Care Access Planning
 
 **Which Massachusetts counties warrant deeper investigation for primary-care access, and how stable is that shortlist under different reasonable assumptions?**
 
@@ -16,7 +16,7 @@ Four of the eight settings reproduce the baseline shortlist exactly, so the eigh
 
 ## Decision implication
 
-These counties **warrant deeper investigation, not automatic resource allocation.** The output prioritises where to gather evidence next. It does not establish unmet need, current appointment availability, or an optimal clinic location. Appointment availability, insurance acceptance, travel time and within-county variation would all be needed before a service decision.
+These counties **warrant deeper investigation, not automatic resource allocation.** The output prioritizes where to gather evidence next. It does not establish unmet need, current appointment availability, or an optimal clinic location. Appointment availability, insurance acceptance, travel time and within-county variation would all be needed before a service decision.
 
 The [two-page decision memo](docs/decision_memo.pdf) records the finding, the recommendation, the uncertainty and the information still missing.
 
@@ -46,13 +46,13 @@ Poverty uses *population with poverty status determined* as its denominator, not
 
 Eight parameter settings vary the capacity threshold, the workforce year, the population-context rule and the margin-of-error bounds. The recorded outcome of every setting is in [`analysis/findings.json`](analysis/findings.json), and [`analysis/county_comparison.csv`](analysis/county_comparison.csv) retains all 14 counties including those never selected.
 
-Automated checks cover geographic reconciliation, denominator consistency, analytical outputs, sensitivity behaviour and reproducible installation. Source slices are validated against pinned hashes before any calculation runs, so an upstream change surfaces for review rather than silently altering results. Suppressed or unavailable values are carried as missing, never as zero.
+Automated checks cover geographic reconciliation, denominator consistency, analytical outputs, sensitivity behavior and reproducible installation. Source slices are validated against pinned hashes before any calculation runs, so an upstream change surfaces for review rather than silently altering results. Suppressed or unavailable values are carried as missing, never as zero.
 
 The margin-of-error settings are sensitivity ranges, **not significance tests**. Full detail in [validation](docs/VERIFICATION.md).
 
 ## Tableau dashboard
 
-Download [`dashboard/MA_Primary_Care_Access.twbx`](dashboard/MA_Primary_Care_Access.twbx) and open it in Tableau Desktop or Tableau Public. The package includes its Hyper extract, so no account, upload or external map server is required. The county map and four comparison views share the baseline-shortlist colours. [Dashboard notes](dashboard/README.md) describe units and interactions.
+Download [`dashboard/MA_Primary_Care_Access.twbx`](dashboard/MA_Primary_Care_Access.twbx) and open it in Tableau Desktop or Tableau Public. The package includes its Hyper extract, so no account, upload or external map server is required. The county map and four comparison views share the baseline-shortlist colors. [Dashboard notes](dashboard/README.md) describe units and interactions.
 
 ## Reproduce locally
 
