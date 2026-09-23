@@ -24,7 +24,7 @@ Database, ZIP-container and Hyper binary bytes are **not** asserted to be determ
 ## Dashboard and memo
 
 - Hyper read-back verified 5,625 dashboard rows: 56 county/indicator comparison rows plus 5,569 map vertices. Map rows carry no indicator value, which prevents map fan-out.
-- Tableau rendering is **user-confirmed, not automated**: the county map and all four comparison views render without errors. Application control returned an older workbook window, so no automated visual or interaction check is claimed. Chart transport values and panel filters were checked programmatically.
+- Tableau rendering was **verified manually**, not automatically: the workbook was opened in Tableau Public 2026.2.2, and the county map and all four comparison views render without errors. Chart transport values and panel filters were checked programmatically. No automated visual or interaction check is claimed.
 - The decision memo is exactly two pages, both visually inspected for clipping, overlap and legibility.
 
 ## Privacy
