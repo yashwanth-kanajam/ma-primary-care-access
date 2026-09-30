@@ -32,7 +32,7 @@ All source data are public US federal government publications, redistributed her
 
 Exact URLs, retrieval timestamps and SHA-256 download hashes are pinned in [`data/source_register.json`](data/source_register.json). [Provenance notes](docs/SOURCES.md) explain field selection and time alignment.
 
-Small Massachusetts slices are committed so the analysis runs without network access. The full national downloads (~360 MB) are **not** committed and are reproducible on demand.
+Massachusetts extracts are committed so the analysis runs offline; the full national downloads are not.
 
 ## Analytical approach
 
@@ -56,7 +56,7 @@ Download [`dashboard/MA_Primary_Care_Access.twbx`](dashboard/MA_Primary_Care_Acc
 
 ## Reproduce locally
 
-Requires Python 3.11 or newer. Tested on macOS arm64 with Python 3.11.5; other platforms are unverified. Run from the repository root:
+Requires Python 3.11+.
 
 ```sh
 python3 -m venv .venv
@@ -68,15 +68,13 @@ python3 -m venv .venv
 .venv/bin/ma-access dashboard
 ```
 
-The committed Massachusetts slices mean no network or credentials are needed after installation. These commands overwrite generated files in this project only, and validate source-slice checksums before calculating.
-
-To redownload the original national sources and regenerate the slices:
+To rebuild the extracts from the original federal sources:
 
 ```sh
 .venv/bin/ma-access fetch
 ```
 
-This downloads roughly 360 MB including technical documentation. Downloads must match the pinned source register; changed publisher files require an explicit source review. The Census summary-file route needs no API key.
+Source handling and checksums are described in [provenance notes](docs/SOURCES.md).
 
 ## Repository contents
 
@@ -90,14 +88,12 @@ This downloads roughly 360 MB including technical documentation. Downloads must 
 | `dashboard/` | Tableau workbook, extract, packaged CSV and display notes |
 | `docs/` | Decision memo, data dictionary, methods, limitations and validation |
 
-Derived percentage margins of error and setting decisions are calculated in Python and exported to CSV. Database and Hyper binary bytes are not claimed to be reproducible; tabular values are.
+Derived percentage margins of error and setting decisions are calculated in Python and exported to CSV. Tabular outputs are reproducible; the database and Hyper binary files are not guaranteed to be byte-identical.
 
 ## Limitations
 
 Physician headcounts are not full-time equivalents, open panels, insurance acceptance or patient travel time, and they exclude nurse practitioners and physician assistants. The observations are historical: ACS values describe a five-year period, not a current annual census.
 
-County averages can hide neighbourhood barriers and cross-county care, and resident counts miss seasonal population. Nantucket has low physician supply but does not meet the baseline context rule — an explicit limitation of the screening design, not an indication that its access is adequate. A high-supply county such as Suffolk can still contain real barriers.
-
-Selection frequency across the eight chosen parameter settings is not a probability, and the settings are not independent trials.
+County averages can hide neighbourhood barriers and cross-county care, and resident counts miss seasonal population. Nantucket has low physician supply but misses the baseline context rule, which reflects the screening design, not adequate access. A high-supply county such as Suffolk can still contain real barriers.
 
 See the [data dictionary](docs/DATA_DICTIONARY.md) and [full limitations](docs/LIMITATIONS.md).
