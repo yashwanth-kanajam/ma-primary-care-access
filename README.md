@@ -2,9 +2,9 @@
 
 The baseline screen shortlists six of Massachusetts' 14 counties for a closer look at primary-care access: Bristol, Dukes, Essex, Franklin, Hampden and Plymouth.
 
-The list moves when the cutoffs move. Eight parameter settings produced five different shortlists, and Franklin and Hampden made all of them. Bristol, Dukes and Plymouth held under all four physician-supply settings. Essex drops out under a stricter supply cutoff, and Barnstable enters under a broader one. Four of the eight settings reproduce the baseline exactly, so how often a county is selected is not a probability.
+Change the cutoffs and the list changes. Eight parameter settings produced five different shortlists, and Franklin and Hampden made all of them. Bristol, Dukes and Plymouth held under all four physician-supply settings. Essex drops out under a stricter supply cutoff, and Barnstable enters under a broader one. Four of the eight settings reproduce the baseline exactly, so how often a county is selected is not a probability.
 
-The baseline rule shortlists counties below the county median of 78.8 primary-care physicians per 100,000 residents, and with poverty at or above 9.98% or the age 65+ share at or above 17.47%. Both context cutoffs are population-weighted Massachusetts figures. Physician supply, poverty and age stay separate instead of being combined into one score.
+Counties make the baseline list when they fall below the county median of 78.8 primary-care physicians per 100,000 residents and have poverty at or above 9.98% or an age 65+ share at or above 17.47%. Both context cutoffs are population-weighted Massachusetts figures. Physician supply, poverty and age stay separate instead of being combined into one score.
 
 ![Massachusetts counties on the baseline investigation shortlist, shown beside primary-care physicians per 100,000 residents by county against the county median](docs/img/shortlist_overview.svg)
 
